@@ -1,0 +1,51 @@
+{
+  "name": "viteoptions",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "serve": "vite --mode development --host 0.0.0.0",
+    "serve:open": "vite --open --mode development --host 0.0.0.0",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --mode production"
+  },
+  "dependencies": {
+    "@element-plus/icons": "^0.0.11",
+    "@element-plus/icons-vue": "^1.1.1",
+    "@types/axios": "^0.14.0",
+    "axios": "^0.26.0",
+    "echarts": "^5.3.1",
+    "element-plus": "^2.0.5",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.11",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.13"
+  },
+  "devDependencies": {
+    "@iconify/json": "^2.1.13",
+    "@types/nprogress": "^0.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "@vitejs/plugin-vue": "^2.2.0",
+    "@vue/compiler-sfc": "^3.2.31",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "autoprefixer": "^10.4.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "less": "^4.1.2",
+    "mockjs": "^1.1.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4",
+    "unplugin-auto-import": "^0.6.1",
+    "unplugin-icons": "^0.13.3",
+    "unplugin-vue-components": "^0.17.21",
+    "vite": "^2.8.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-mock": "^2.9.6",
+    "vue-tsc": "^0.29.8"
+  }
+}
