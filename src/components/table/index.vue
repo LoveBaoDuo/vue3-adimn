@@ -57,7 +57,7 @@ export default defineComponent({ name: 'myTable' })
     v-if="!TableHookObj.length.value"
     :rows="10"
     animated
-    :throttle="500"
+    :throttle="100"
   />
   <el-table
     v-else
@@ -69,6 +69,13 @@ export default defineComponent({ name: 'myTable' })
     @selection-change="handleSelectionChange"
   >
     <template #default>
+      <!-- 是否开启多选框 -->
+      <el-table-column
+        v-if="options.checkbox"
+        type="selection"
+        width="55"
+        align="center"
+      ></el-table-column>
       <!-- 开启索引 -->
       <el-table-column
         v-if="options.index"
@@ -77,13 +84,6 @@ export default defineComponent({ name: 'myTable' })
         width="80"
         align="center"
       />
-      <!-- 是否开启多选框 -->
-      <el-table-column
-        v-if="options.checkbox"
-        type="selection"
-        width="55"
-        align="center"
-      ></el-table-column>
       <!-- 正常列的遍历 -->
       <template v-for="item in options.thead" :key="item.parkinNagem">
         <!-- 默认正常的类型 -->
