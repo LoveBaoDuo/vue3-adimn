@@ -133,6 +133,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '/api'),
       },
+      '/mock/test': {
+        target: 'http://192.168.1.6:8081/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/mock\/test/, ''),
+      },
     },
   },
 })

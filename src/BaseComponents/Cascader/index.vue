@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as T from '@/components/types/Cascader'
+import * as T from '@/BaseComponents/types/Cascader'
 // 传入的配置参数的约束
 interface CascaderOption {
   multiple?: boolean // 开启多选

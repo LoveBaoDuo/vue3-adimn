@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { testBar } from '@/components/chart/bar'
+import { testBar } from '@/BaseComponents/chart/bar'
 // 图表数据
 const data = ref([120, 200, 150, 80, 70, 110, 130])
 const test = () => {

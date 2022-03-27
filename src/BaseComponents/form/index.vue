@@ -1,41 +1,33 @@
 <script setup lang="ts">
-import * as T from '@/components/types/FormTypes'
-import type { ElForm } from 'element-plus'
-type ElFormInstance = InstanceType<typeof ElForm>
+import { FormPropsTypes } from './src/types/FormTypes'
+import FormHandle from './formTrigger'
 const props = defineProps<{
-  FormOptions: T.FormPropsTypes
+  FormOptions: FormPropsTypes
   formData: any
   rules: any
 }>()
+const emit = defineEmits<{
+  (e: 'handleSumbie', data: any): void
+}>()
+const formHandle = new FormHandle()
 const formData = computed(() => props.formData)
 // form表单
-const ruleFormRef = ref<ElFormInstance>()
+const ruleFormRef = formHandle.getFormElement()
 // 触发表单submit事件
 const handlesubmit = async ($event: Event) => {
   try {
-    const result = await ruleFormRef.value?.validate()
-    props.FormOptions.handlesubmit &&
-      props.FormOptions.handlesubmit(ruleFormRef)
+    // 提交表单时进行表单校验
+    await ruleFormRef.value?.validate()
+    emit('handleSumbie', $event)
   } catch (err) {
     console.log(err)
   }
 }
 // 触发按钮点击事件
-const handleClick = ($event: any, handle?: (e: any) => void) => {
-  if (!handle) {
-    return
-  }
-  // 重置表单
-  try {
-    ruleFormRef.value?.resetFields()
-    handle($event)
-  } catch (err) {
-    console.log(err)
-  }
-}
+const handleClick = formHandle.handleClick
 </script>
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 export default defineComponent({ name: 'MyForm' })
 </script>
 <template>
@@ -48,7 +40,7 @@ export default defineComponent({ name: 'MyForm' })
     :inline="props.FormOptions?.inline"
     @submit.prevent="handlesubmit"
   >
-    <template v-for="(item, index) in props.FormOptions.Options" :key="index">
+    <template v-for="(item, index) in props.FormOptions.options" :key="index">
       <!-- 类型是文本框时 -->
       <el-form-item
         v-if="item.type === 'input'"
@@ -70,6 +62,7 @@ export default defineComponent({ name: 'MyForm' })
         :label-width="item?.lableWidth"
         :prop="item.value"
       >
+        <!-- 下拉框 -->
         <el-select
           v-model="formData[item.value]"
           :placeholder="item?.placeholder"
@@ -127,9 +120,10 @@ export default defineComponent({ name: 'MyForm' })
         >
       </el-form-item>
       <!-- 类型是slot时 -->
-      <el-form-item v-else :label="item.label" :label-width="item?.lableWidth">
-        <slot :value="item"></slot>
-      </el-form-item>
+      <template v-if="item.type === 'slot'">
+        <slot v-if="item.slotName" :name="item.slotName"></slot>
+        <slot v-else></slot>
+      </template>
     </template>
   </el-form>
 </template>

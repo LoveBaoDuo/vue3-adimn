@@ -4,12 +4,16 @@ import { MockMethod } from 'vite-plugin-mock'
 export default [
   {
     url: '/mock/get',
-    method: 'get',
+    method: 'POST',
+    body: {
+      pageSize: 10,
+      pageNum: 1,
+    },
     response: () => {
       return {
         code: 200,
         data: {
-          'array|100': [
+          'array|20': [
             {
               'parkinNagem|+1': ['Hello', 'Mock.js', '!'],
               'addres|+1': ['民治', '龙华', '五和'],
@@ -17,8 +21,9 @@ export default [
               'status|+1': [0, 1],
             },
           ],
+          total: 10000,
         },
       }
     },
   },
-] as MockMethod[]
+] as unknown as MockMethod[]
