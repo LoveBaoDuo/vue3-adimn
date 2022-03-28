@@ -34,6 +34,13 @@ const handleSwitch = (val: any, newVal: any) => {
   console.log(val, newVal)
   emit('switchChange', val)
 }
+// const defaultData = computed(() => tableData.value.slice(0, 10))
+// const currentData = ref()
+// const currentTableData = (start = 0, end = 10) => {
+//   console.log(1)
+//   currentData.value = tableData.value.slice(start, end)
+// }
+// console.log(currentData)
 </script>
 <script lang="ts">
 import { defineComponent } from 'vue'

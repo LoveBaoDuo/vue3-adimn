@@ -19,7 +19,7 @@ export default defineStore('tableDataState', {
       this.total = result.data.total
     },
     async getTable(pageSize: number, pageNum: number, url: string) {
-      const result = await MyRequest.post({
+      await MyRequest.post({
         url,
         // 请求级别的拦截器
         interceptors: {
@@ -29,7 +29,6 @@ export default defineStore('tableDataState', {
           },
         },
       })
-      console.log(result)
     },
   },
 })
