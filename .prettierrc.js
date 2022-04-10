@@ -17,5 +17,8 @@ module.exports = {
     // (x) => {} 箭头函数参数只有一个时是否要有小括号。avoid：省略括号
     arrowParens: 'avoid',
     // 维护现有的行尾
-    endOfLine: 'auto'
+    endOfLine: 'auto',
+    // 去除末尾逗号
+    trailingComma: 'none'
+
   }

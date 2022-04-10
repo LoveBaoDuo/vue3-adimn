@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { tableOptions } from './src/types/tableTypes'
 import NormalTableColumn from './NormalTableColumn.vue'
 import TableHook, { getTableOptionsHook } from './src/hook/index'
@@ -34,6 +35,24 @@ const handleSwitch = (val: any, newVal: any) => {
   console.log(val, newVal)
   emit('switchChange', val)
 }
+
+interface SpanMethodProps {
+  row: any
+  column: TableColumnCtx<any>
+  rowIndex: number
+  columnIndex: number
+}
+const arraySpanMethod = ({
+  row,
+  column,
+  rowIndex,
+  columnIndex
+}: SpanMethodProps) => {
+  if (columnIndex === 2) {
+    console.log(column)
+    return [1, 2]
+  }
+}
 // const defaultData = computed(() => tableData.value.slice(0, 10))
 // const currentData = ref()
 // const currentTableData = (start = 0, end = 10) => {
@@ -57,6 +76,7 @@ export default defineComponent({ name: 'myTable' })
       :height="options?.height"
       max-height="532px"
       :style="{ width: options.width }"
+      :span-method="arraySpanMethod"
       @selection-change="handleSelectionChange"
     >
       <template #default>

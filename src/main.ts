@@ -8,10 +8,12 @@ import directive from './directive'
 // 导入重置样式
 import '@/style/normalize.css'
 import './permission'
+import vxeTable from './BaseComponents/vxeTable'
 const app = createApp(App)
 app
   .use(router)
   .use(createPinia())
   .use(BaseComponents)
   .use(directive)
+  .use(vxeTable)
   .mount('#app')

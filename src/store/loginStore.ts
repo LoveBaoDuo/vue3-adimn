@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router'
 import {
   setLocalStorage,
   getLocalStorage,
-  removeLocalStorage,
+  removeLocalStorage
 } from '@/utils/auth'
 
 interface stateTypes {
@@ -20,7 +20,7 @@ const state: stateTypes = {
   TOKEN: getLocalStorage('TOKEN') || null,
   menuTreeList: getLocalStorage('MENUTREELIST') || [],
   isCollapse: false,
-  priRouter: [],
+  priRouter: []
 }
 export default defineStore('useLoginStore', {
   state: () => state,
@@ -65,6 +65,6 @@ export default defineStore('useLoginStore', {
       } catch (err) {
         console.log(err)
       }
-    },
-  },
+    }
+  }
 })

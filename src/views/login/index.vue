@@ -1,44 +1,48 @@
 <script setup lang="ts">
 // 导入表单元素
-import MyForm from '@/BaseComponents/form/index.vue'
+// import MyForm from '@/BaseComponents/form/index.vue'
 // 导入 表单元素的配置文件
-import { LoginFormConfig } from '@/BaseComponents/form/src/config/login.config'
+import { loginFormConfig } from '@/BaseComponents/form/src/config/login.config'
+import MyForms from '@/BaseComponents/form/src/index.vue'
 // 导入登入相关的 状态管理
-import useLoginStore from '@/store/loginStore'
-import { useRouter } from 'vue-router'
-import { $message } from '@/utils/auth'
-const router = useRouter()
-const useLogin = useLoginStore()
-// 登入数据
-const userInfo = reactive({
-  username: '',
-  password: '',
-})
+// import useLoginStore from '@/store/loginStore'
+// import { useRouter } from 'vue-router'
+// import { $message } from '@/utils/auth'
+// const router = useRouter()
+// const useLogin = useLoginStore()
+// // 登入数据
+// const userInfo = reactive({
+//   username: '',
+//   password: ''
+// })
 // 表单的数据校验
 // 表单校验规则
-const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 12, message: '密码长度6-12为', trigger: 'blur' },
-  ],
-}
+// const rules = {
+//   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+//   password: [
+//     { required: true, message: '请输入密码', trigger: 'blur' },
+//     { min: 6, max: 12, message: '密码长度6-12为', trigger: 'blur' }
+//   ]
+// }
 // 提交表单
-const handleSumbie = async () => {
-  const result = await useLogin.UserLogin(userInfo)
-  // 获取菜单列表
-  await useLoginStore().getMenuTreeList({
-    page_num: 0,
-    page_size: 100,
+const handleSumbie = async (form: ElFormInstance, model: any) => {
+  form.validate(valid => {
+    if (valid) {
+      console.log(model)
+    } else {
+      console.log('表单填写有误')
+    }
   })
-  if (result) {
-    $message({ message: '登入成功', type: 'success', duration: 1000 })
-    router.push({ path: '/' })
-  }
+}
+// 重置表单
+const handleRest = (form: ElFormInstance, model: any) => {
+  form.resetFields()
 }
 </script>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent } from 'vue'
+import type { ElForm } from 'element-plus'
+type ElFormInstance = InstanceType<typeof ElForm>
 export default defineComponent({ name: 'LoginVue' })
 </script>
 <template>
@@ -48,23 +52,14 @@ export default defineComponent({ name: 'LoginVue' })
         <h1>后台管理系统</h1>
       </div>
       <div class="loginForm">
-        <my-form
-          :FormOptions="LoginFormConfig"
-          :formData="userInfo"
-          :rules="rules"
-          @handleSumbie="handleSumbie"
-        >
-          <template #btn>
-            <div class="loginBtn">
-              <el-button
-                type="primary"
-                native-type="submit"
-                :style="{ width: '100%' }"
-                >登录</el-button
-              >
-            </div>
+        <MyForms label-width="80px" :FormOptions="loginFormConfig">
+          <template #action="{ form, model }">
+            <el-button type="primary" @click="handleSumbie(form!, model)"
+              >登入</el-button
+            >
+            <el-button @click="handleRest(form!, model)">重置</el-button>
           </template>
-        </my-form>
+        </MyForms>
       </div>
     </el-card>
   </div>

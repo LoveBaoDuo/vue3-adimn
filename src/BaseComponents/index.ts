@@ -12,5 +12,5 @@ export default {
       const component = importFn[key]?.default
       app.component(component.name as string, component)
     })
-  },
+  }
 }

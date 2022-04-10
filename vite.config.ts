@@ -15,7 +15,7 @@ import viteCompression from 'vite-plugin-compression'
 import { viteMockServe } from 'vite-plugin-mock'
 
 import autoprefixer from 'autoprefixer'
-
+// import vueJsx from '@vitejs/plugin-vue-jsx'
 // element-puls 按需导入的插件
 // 配置好 element-puls的按需导入后 除el组件的其它组件名不能以 el 开头 否则会保错
 import AutoImport from 'unplugin-auto-import/vite'
@@ -24,24 +24,29 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import {
+  createStyleImportPlugin,
+  VxeTableResolve
+} from 'vite-plugin-style-import'
 export default defineConfig({
   base: '/',
   plugins: [
     vue(),
+    // vueJsx(),
     // 打包压缩代码
     viteCompression({
       verbose: true,
       disable: false,
       threshold: 10240,
       algorithm: 'gzip',
-      ext: '.gz',
+      ext: '.gz'
     }),
     // 配置mock文件
     viteMockServe({
-      mockPath: 'mock',
+      mockPath: 'mock'
     }),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver()]
     }),
     Components({
       resolvers: [
@@ -51,9 +56,9 @@ export default defineConfig({
           // 自动引入的Icon组件统一前缀，默认为 i，设置false为不需要前缀
           prefix: 'icon',
           // 标识自定义图标集
-          customCollections: ['custom'],
-        }),
-      ],
+          customCollections: ['custom']
+        })
+      ]
     }),
     Icons({
       compiler: 'vue3',
@@ -62,9 +67,13 @@ export default defineConfig({
       customCollections: {
         // 自定义图标集
         // 这里是存放svg图标的文件地址，custom是自定义图标库的名称
-        custom: FileSystemIconLoader('./src/assets/icons'),
-      },
+        custom: FileSystemIconLoader('./src/assets/icons')
+      }
     }),
+    // vxe-table 按需导入
+    createStyleImportPlugin({
+      resolves: [VxeTableResolve()]
+    })
   ],
   css: {
     postcss: {
@@ -76,20 +85,20 @@ export default defineConfig({
             'Chrome > 31',
             'ff > 31',
             'ie >= 8',
-            '> 1%',
+            '> 1%'
           ],
-          grid: true,
+          grid: true
         }),
-        require('postcss-flexbugs-fixes'),
-      ],
+        require('postcss-flexbugs-fixes')
+      ]
     },
     // 配置全局样式
     preprocessorOptions: {
       less: {
-        charset: false,
+        charset: false
         // additionalData: '@import "./src/style/common.less";',
-      },
-    },
+      }
+    }
   },
   resolve: {
     // 为文件路径取别名
@@ -98,8 +107,8 @@ export default defineConfig({
       // '@': resolve(__dirname, 'src'),
       // comp: src 下的 components 路径别名
       comp: resolve(__dirname, 'src/components'),
-      '/imgs': '/src/assets',
-    },
+      '/imgs': '/src/assets'
+    }
   },
   // 生产环境配置
   build: {
@@ -108,8 +117,8 @@ export default defineConfig({
       compress: {
         // 生成输出时 去除所有console.log
         drop_console: true,
-        drop_debugger: true,
-      },
+        drop_debugger: true
+      }
     },
     // 取消计算文件大小，加快打包速度
     reportCompressedSize: false,
@@ -119,9 +128,9 @@ export default defineConfig({
       output: {
         chunkFileNames: 'js/[name]-[hash].js',
         entryFileNames: 'js/[name]-[hash].js',
-        assetFileNames: '[ext]/[name]-[hash].[ext]',
-      },
-    },
+        assetFileNames: '[ext]/[name]-[hash].[ext]'
+      }
+    }
   },
   // 热更新配置
   server: {
@@ -131,13 +140,13 @@ export default defineConfig({
       '/api': {
         target: 'http://127.0.0.1:2233',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '/api'),
+        rewrite: path => path.replace(/^\/api/, '/api')
       },
       '/mock/test': {
         target: 'http://192.168.1.6:8081/',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/mock\/test/, ''),
-      },
-    },
-  },
+        rewrite: path => path.replace(/^\/mock\/test/, '')
+      }
+    }
+  }
 })

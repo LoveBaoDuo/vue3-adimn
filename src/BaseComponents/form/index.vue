@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { FormPropsTypes } from './src/types/FormTypes'
 import FormHandle from './formTrigger'
+// import { FormOptions } from './src/types/FormTypes'
 const props = defineProps<{
   FormOptions: FormPropsTypes
   formData: any
   rules: any
 }>()
+// const rr: FormOptions[] = []
+// console.log(rr)
 const emit = defineEmits<{
   (e: 'handleSumbie', data: any): void
 }>()

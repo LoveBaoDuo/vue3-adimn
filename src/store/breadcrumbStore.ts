@@ -5,10 +5,11 @@ interface beradAll {
   title: string
 }
 export interface breadcrumbState {
+  // 面包屑的
   beradPath: beradAll[]
 }
 const state: breadcrumbState = {
-  beradPath: [],
+  beradPath: []
 }
 export default defineStore('breadcrumbState', {
   state: () => state,
@@ -30,6 +31,6 @@ export default defineStore('breadcrumbState', {
     },
     delBeradPath(index: number) {
       this.beradPath.splice(index, 1)
-    },
-  },
+    }
+  }
 })

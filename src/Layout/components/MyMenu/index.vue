@@ -46,7 +46,6 @@ export default defineComponent({ name: 'MyMenu' })
     @close="handleClose"
   >
     <template #default>
-      <!-- logo 标题 -->
       <el-menu-item>
         <template #default>
           <MyLogo :LogoConfig="baseConfig" :isTitle="isCollapse"></MyLogo>

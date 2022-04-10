@@ -7,7 +7,7 @@ interface TableTypes {
 }
 const state: TableTypes = {
   tableData: [],
-  total: 0,
+  total: 0
 }
 export default defineStore('tableDataState', {
   state: () => state,
@@ -26,9 +26,9 @@ export default defineStore('tableDataState', {
           responseInterceptor: res => {
             console.log('测试请求级拦截')
             return res
-          },
-        },
+          }
+        }
       })
-    },
-  },
+    }
+  }
 })
